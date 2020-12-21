@@ -7,38 +7,43 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="Basic Scene with Environment - Prototype">
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
 </head>
 <body>
-<a-scene>
-    <a-box src="https://i.imgur.com/mYmmbrp.jpg" position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-    <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-    <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+<a-scene environment="preset: tron; dressingAmount: 90; skyType: gradient; horizonColor: #E3C6E8; groundTexture: checkerboard;
+                      groundColor: #B9D9F0; groundColor2: #ADCCE0; dressing: trees; dressingColor: #B4D9B2;
+                      grid: none; groundTexture: walkernoise;"
+         physics="debug: true">
     <a-sky color="#ECECEC"></a-sky>
-    <!-- Окружение, прямо из коробки! -->
-    <a-entity
-            environment="preset: tron;
-                         dressingAmount: 90;
-                         skyType: gradient;
-                         horizonColor: #E3C6E8;
-                         groundTexture: checkerboard;
-                         groundColor: #B9D9F0;
-                         groundColor2: #ADCCE0;
-                         dressing: trees;
-                         dressingColor: #B4D9B2;
-                         grid: none;
-                         groundTexture: walkernoise;"
-            light="type: ambient; color: #65107D">
-    </a-entity>
-<!--    <a-scene environment="preset: starry">
-        <a-camera>
-            <a-entity cursor="fuse: true; fuseTimeout: 500"
-                      position="0 0 -1"
-                      geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-                      material="color: black; shader: flat">
-            </a-entity>
-        </a-camera>
-    </a-scene>-->
+    <a-assets>
+        <!-- Загрузка комнаты -->
+        <a-assets-item id="room" src="./assets/room/scene.gltf"></a-assets-item>
+        <!-- Загрузка стены -->
+        <a-assets-item id="house" src="./assets/house/scene.gltf" static-body></a-assets-item>
+        <!-- Загрузка двери -->
+        <a-assets-item id="door" src="./assets/door/scene.gltf"></a-assets-item>
+    </a-assets>
+
+    <a-sphere src="./assets/textures.jpg" position="1.064 0.664 0.375" radius="0.2" height="0.1" rotatecolor="white" rotation="0 250 0"
+                event-set__enter="_event: mouseenter; _target: #cylinderText; visible: true"
+                event-set__leave="_event: mouseleave; _target: #cylinderText; visible: false"
+                event-set__down="_event: mousedown; position: -2.38 0.168 -0.634">
+
+        <a-text id="cylinderText" value="Click on me to put me in my place" align="center" color="#333" width="1.5" visible="false" position="0.120 -0.037 0.545" rotation="-20 20 0"
+                geometry="primitive: plane; width: 1.5; height: 0.25" material="color: #FFF"></a-text>
+    </a-sphere>
+    <a-gltf-model gltf-model="#room" scale="0.01 0.01 0.01">
+        <a-light type="point" position="-0.239 2.472 0.252"></a-light>
+    </a-gltf-model>
+    <a-gltf-model gltf-model="#house" scale="0.001 0.001 0.001" position="-8.266 2.930 3.452"></a-gltf-model>
+    <a-gltf-model gltf-model="#door" scale="0.03 0.03 0.03" position="-1.850 1.253 3.004"></a-gltf-model>
+
+    <a-entity light="type: ambient; color: #65107D"></a-entity>
+    <a-camera>
+        <a-cursor></a-cursor>
+    </a-camera>
 </a-scene>
 </body>
 </html>

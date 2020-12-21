@@ -1,0 +1,23 @@
+{
+  "name": "softskills",
+  "version": "1.0.0",
+  "description": "vr prototype",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r144yh/softSkills.git"
+  },
+  "author": "r144yh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r144yh/softSkills/issues"
+  },
+  "homepage": "https://github.com/r144yh/softSkills#readme",
+  "dependencies": {
+    "aframe-physics-system": "^4.0.1",
+    "aframe-ui-widgets": "^1.0.2"
+  }
+}
